@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agent Approval</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    {% include 'html/navbar.html' %}
+    <div class="container">
+        <h2>Agent Approval</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Agent</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.project.title }}</td>
+                        <td>{{ request.agent.username }}</td>
+                        <td>
+                            <form method="post" action="{% url 'approve_request' request.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Approve</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

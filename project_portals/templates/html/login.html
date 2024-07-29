@@ -1,0 +1,56 @@
+{% extends 'html/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+{% load static %}
+
+<style type="text/css">
+    .container-fluid {
+        background-image: url('{% static "lg.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .card {
+        background-size: cover;
+        background-position: center;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        filter: drop-shadow(1px 1px 20px white);
+        padding: 20px;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="card" style="width: 400px;">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">Login</h1>
+            <form method="post" >
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" class="form-control my-2">
+
+                <input type="password" name="password" placeholder="Password" class="form-control my-2">
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary form-control" style="color: white;">New User?</a>
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Login" class="btn btn-outline-success form-control"style="color: white;">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

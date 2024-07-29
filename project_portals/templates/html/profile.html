@@ -1,0 +1,59 @@
+{% extends 'html/base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+	<div class="row mx-2">
+		<div class="card col-md-2 col-sm-3 col-xm-3 shadow-lg m-2 h-100" style="background-color:black;">
+			<div class="card-body text-center">
+				<img src="{{request.user.Profile_Image.url}}" class="square" height="180px" width="100%">
+				<h3 style="color: white;">{{request.user.username}}</h3>
+			</div>
+		</div>
+		<div class="card col-md col-sm col-xm shadow-lg m-2" style="background-color: white;">
+			<div class="card-body">
+				<div class="row my-2">
+					<div class="col">
+						<h3>Hey!, {{ request.user.username }}</h3>
+						<h4>This is your Profile</h4>
+					</div>
+					<div class="col">
+						<a href="" class="btn btn-outline-info float-right">Update Profile</a>
+					</div>
+				</div>
+				
+				<table class="table table-responsive">
+					<tr>
+						<td>Username</td>
+						<td>{{request.user.username}}</td>
+					</tr>
+					<tr>
+						<td>First Name</td>
+						<td>{{request.user.first_name}}</td>
+ 					</tr>
+						<td>Last Name</td>
+						<td>{{request.user.last_name}}</td>
+					<tr>
+						<td>Emailid</td>
+						<td>{{request.user.email}}</td>
+					</tr>
+					<tr>
+						<td>Mobile Number</td>
+						<td>{{request.user.Mobile_Number}}</td>
+					</tr>
+						<td>Role Type</td>
+						<td>
+							{% if request.user.is_superuser %}
+								<p class="badge badge-primary">Admin</p>
+							{% elif request.user.Role_Type == "1" %}
+							    <p class="badge badge-success">Team Lead</p>
+							{% elif request.user.Role_Type == "2" %}
+							    <p class="badge badge-secondary">Agent</p>
+							{% endif %}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

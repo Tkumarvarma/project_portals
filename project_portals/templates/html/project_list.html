@@ -1,0 +1,99 @@
+{% extends 'html/base.html' %}
+{% block title %}Project List{% endblock %}
+{% block content %}
+{% load static %}
+{% load dict_utils %}
+
+<div class="container mt-5">
+    <h1 class="text-center">Projects</h1>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Team Lead</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td>
+                        {% with project_status|dict_get:project.id as status %}
+                            <!-- Debugging output -->
+                            <div style="display:none;">
+                                Status for project {{ project.id }}:
+                                {% if status %}
+                                    Approved: {{ status.approved }}
+                                    Started: {{ status.started }}
+                                {% else %}
+                                    No status found
+                                {% endif %}
+                            </div>
+                            {% if status %}
+                                {% if status.approved %}
+                                    {% if status.started %}
+                                        <a href="{% url 'project_detail' project.id %}" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i> View Project
+                                        </a>
+                                    {% else %}
+                                        <form method="post" action="{% url 'start_project_work' project.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm start-working-btn">
+                                                <i class="fas fa-play"></i> Start Working
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="badge badge-warning">Pending Approval</span>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge badge-warning">Pending Approval</span>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.description }}</td>
+                    <td>{{ project.team_lead }}</td>
+                    <td>{{ project.category }}</td>
+                    <td>{{ project.points }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add FontAwesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Add some custom styling -->
+<style>
+    h1 {
+        color: #343a40;
+        margin-bottom: 20px;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    .btn-info, .btn-success {
+        margin-right: 5px;
+    }
+    .badge-warning {
+        padding: 5px 10px;
+    }
+    .start-working-btn {
+        background: linear-gradient(90deg, rgba(58,123,213,1) 0%, rgba(58,213,151,1) 100%);
+        border: none;
+        color: white;
+        transition: background 0.3s, transform 0.3s;
+    }
+    .start-working-btn:hover {
+        background: linear-gradient(90deg, rgba(58,213,151,1) 0%, rgba(58,123,213,1) 100%);
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}

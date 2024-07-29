@@ -1,0 +1,40 @@
+{% extends 'html/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load static %}
+<style type="text/css">
+    .container-fluid {
+        background-image: url('{% static "back.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .card{
+        background-color: black;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card" style="width: 400px;">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">User Registration</h1>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                    {{ g }}
+                    <p class="text-danger" style="font-size:13px">{{g.errors|striptags}}</p>
+                <p class="text-danger" style="font-size:13px">{{g.errors|striptags}}</p>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

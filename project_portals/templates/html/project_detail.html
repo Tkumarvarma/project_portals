@@ -1,0 +1,23 @@
+{% extends 'html/base.html' %}
+{% block title %}Project Detail{% endblock %}
+{% block content %}
+{% load static %}
+<div class="card col-md col-sm col-xm shadow-lg m-2" style="background: black;">
+    <div class="card-body" style="background:white">
+        <div class="row my-2">
+            <div class="col">
+                <h3>Project: {{ project.title }}</h3>
+            </div>
+        </div>
+        <p><strong>Description:</strong> {{ project.description }}</p>
+        <p><strong>Team Lead:</strong> {{ project.team_lead }}</p>
+        <p><strong>Category:</strong> {{ project.category }}</p>
+        <p><strong>Points:</strong> {{ project.points }}</p>
+        {% if request.user.Role_Type == "2" %}
+        <li class="btn">
+        <a class="btn btn-primary" href="">Leads</a>
+        </li>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

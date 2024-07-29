@@ -1,0 +1,44 @@
+{% extends 'html/base.html' %}
+{% block title %}Approve Project Request{% endblock %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Approve Requests</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Project Requests</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Agent</th>
+                    <th>Requested At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in project_requests %}
+                <tr>
+                    <td>{{ request.project.name }}</td>
+                    <td>{{ request.agent.username }}</td>
+                    <td>{{ request.requested_at }}</td>
+                    <td>
+                        <form method="post" action="{% url 'approve_request' request.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="approve" class="btn btn-success">Approve</button>
+                            <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+{% endblock %}

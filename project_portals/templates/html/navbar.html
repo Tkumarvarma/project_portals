@@ -1,0 +1,69 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm bg-info navbar-dark">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'pp.jpg' %}" alt="logo" class="rounded" width="40px" height="30px"> Portals App
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'hm' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'hm' %}">Home</a>
+      </li>
+      {% if request.user.Role_Type == "0" and not request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'hm' %}">Access Denied</a>
+      </li>
+      {% elif request.user.Role_Type == "1" and not request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Team Performance</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Hire</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'agent_approval' %}">Agent Approval</a>
+      </li>
+      {% elif request.user.Role_Type == "2" and not request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/projects/' %}active{% endif %}" href="{% url 'project_list' %}">List of Projects</a>
+      </li>
+      {% elif request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/add_project/' %}active{% endif %}" href="{% url 'add_projects' %}">Add Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/projects/' %}active{% endif %}" href="{% url 'project_list' %}">List of Projects</a>
+      </li>
+      {% endif %}
+      {% endif %}
+    </ul>
+    <ul class="navbar-nav ml-auto" style="margin-right:120px">
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/lgn/' %}active{% endif %}" href="{% url 'lg' %}">Login</a>
+      </li>
+      {% else %}
+      <div class="dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+          Welcome {{ request.user.username }}
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item {% if request.path == '/pfle/' %}active{% endif %}" href="{% url 'pf' %}">Profile</a>
+          <a class="dropdown-item" href="#">Change Password</a>
+          <a class="dropdown-item {% if request.path == '/lgot/' %}active{% endif %}" href="{% url 'lgt' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

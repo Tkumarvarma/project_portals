@@ -1,0 +1,30 @@
+{% extends 'html/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+{% load static %}
+
+<style type="text/css">
+    .container-fluid {
+        background-image: url('{% static "back.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="card" style="width: 400px;">
+        <div class="card-body">
+            <h4>Logout</h4>
+			<h6>Need to Login Again?</h6>
+			<a href="{% url 'lg' %}" class="btn btn-outline-info" >Login Again</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

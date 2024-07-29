@@ -1,0 +1,12 @@
+{% extends 'html/base.html' %}
+{% block title %}Request Project{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Request Project</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to request to start working on this project?</p>
+        <button type="submit" class="btn btn-primary">Request</button>
+    </form>
+</div>
+{% endblock %}

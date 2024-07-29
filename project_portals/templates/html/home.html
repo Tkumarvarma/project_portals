@@ -1,0 +1,53 @@
+{% extends 'html/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load static %}
+<style type="text/css">
+    .background-image {
+        background-image: url('{% static "back.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.8); 
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        font-size: 40px;
+    }
+
+    .heading h1{
+        color: white;
+        font-size: 100px;
+    }
+</style>
+
+<div class="background-image">
+    <div class="heading"><h1>Portals App</h1></div>
+</div>
+
+<div class="footer">
+    <div class="btn">
+        <a class="btn btn-primary" href="">About Us</a>
+        <a class="btn btn-primary ml-2" href="">Contact Us</a>
+    </div>
+</div>
+{% endblock %}
